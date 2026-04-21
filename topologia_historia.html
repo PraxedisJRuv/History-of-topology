@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historia de la Topología — Revisión Histórica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --parchment: #f5f0e8;
+    --cream: #faf7f2;
+    --ideas: #2d5a8e;
+    --ideas-light: #d6e4f5;
+    --material: #6b3a2a;
+    --material-light: #f5ddd6;
+    --philosophy: #3a5c3a;
+    --philosophy-light: #d6ebd6;
+    --disruption: #7a2a2a;
+    --disruption-light: #f5d6d6;
+    --gold: #b8860b;
+    --gold-light: #f5eac8;
+    --border: #c8bfae;
+    --shadow: rgba(26,20,16,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px
+    );
+  }
+  header .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+  }
+  header h1 em {
+    font-style: italic;
+    color: #d4b87a;
+  }
+  header .subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #b8a898;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: #7a6a5a;
+    text-transform: uppercase;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    background: var(--parchment);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .legend-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6a5a4a;
+    margin-right: 0.5rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .legend-item:hover { opacity: 0.8; }
+  .legend-item.active-filter { border-color: currentColor; }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-ideas { background: var(--ideas); }
+  .dot-material { background: var(--material); }
+  .dot-philosophy { background: var(--philosophy); }
+  .dot-disruption { background: var(--disruption); }
+  .item-ideas { color: var(--ideas); }
+  .item-material { color: var(--material); }
+  .item-philosophy { color: var(--philosophy); }
+  .item-disruption { color: var(--disruption); }
+
+  /* ── INTRO ── */
+  .intro {
+    max-width: 780px;
+    margin: 3.5rem auto;
+    padding: 0 2rem;
+  }
+  .intro .thesis {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: #3a2a1a;
+    border-left: 3px solid var(--gold);
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .intro p {
+    color: #4a3a2a;
+    margin-bottom: 1rem;
+  }
+
+  /* ── TIMELINE WRAPPER ── */
+  .timeline {
+    max-width: 1100px;
+    margin: 0 auto 4rem;
+    padding: 0 1.5rem;
+  }
+
+  /* ── PERIOD BLOCK ── */
+  .period {
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .period-header {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 0;
+  }
+  .period-date {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 1.2rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .period-date .century {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a7a6a;
+    margin-bottom: 0.3rem;
+  }
+  .period-date .years {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .period-title-block {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid #3a2a1a;
+  }
+  .period-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .period-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .period-title em { font-style: italic; color: #d4b87a; }
+
+  /* ── CARDS GRID ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+    border-top: none;
+  }
+
+  .card {
+    padding: 1.4rem 1.5rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+  .card:last-child { border-right: none; }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .card.ideas::before { background: var(--ideas); }
+  .card.material::before { background: var(--material); }
+  .card.philosophy::before { background: var(--philosophy); }
+  .card.disruption::before { background: var(--disruption); }
+
+  .card.ideas { background: #f8fafe; }
+  .card.material { background: #fdf9f8; }
+  .card.philosophy { background: #f8faf8; }
+  .card.disruption { background: #fdf8f8; }
+
+  .card:hover {
+    z-index: 2;
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+  .card.ideas .card-tag { color: var(--ideas); background: var(--ideas-light); }
+  .card.material .card-tag { color: var(--material); background: var(--material-light); }
+  .card.philosophy .card-tag { color: var(--philosophy); background: var(--philosophy-light); }
+  .card.disruption .card-tag { color: var(--disruption); background: var(--disruption-light); }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .card-actors {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: #7a6a5a;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+  .card p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #3a2a1a;
+    margin-bottom: 0.6rem;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .card strong { font-weight: 600; color: var(--ink); }
+  .card em { font-style: italic; }
+
+  /* Pull quote inside card */
+  .pull-quote {
+    border-left: 2px solid var(--gold);
+    padding-left: 0.9rem;
+    margin: 0.8rem 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: #5a4030;
+    line-height: 1.5;
+  }
+
+  /* ── WIDE CARDS ── */
+  .card.wide {
+    grid-column: 1 / -1;
+  }
+  .card.wide .card-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    .card.wide .card-body { grid-template-columns: 1fr; }
+    .period-header { grid-template-columns: 90px 1fr; }
+  }
+
+  /* ── CONNECTORS ── */
+  .connector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--gold-light);
+    border: 1px solid #d4b87a;
+    border-top: none;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: #7a5a10;
+  }
+  .connector::before {
+    content: '↓';
+    font-style: normal;
+    font-size: 1.1rem;
+    color: var(--gold);
+  }
+
+  /* ── SUMMARY SECTION ── */
+  .summary {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 4rem 2rem;
+    margin-top: 2rem;
+  }
+  .summary-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .summary h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: var(--gold);
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .summary-item {
+    border-top: 2px solid;
+    padding-top: 1rem;
+  }
+  .summary-item.ideas { border-color: var(--ideas); }
+  .summary-item.material { border-color: var(--material); }
+  .summary-item.philosophy { border-color: var(--philosophy); }
+  .summary-item.disruption { border-color: var(--disruption); }
+  .summary-item h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .summary-item.ideas h3 { color: #7ab0e8; }
+  .summary-item.material h3 { color: #e8a898; }
+  .summary-item.philosophy h3 { color: #88c888; }
+  .summary-item.disruption h3 { color: #e88888; }
+  .summary-item ul { list-style: none; }
+  .summary-item ul li {
+    font-size: 0.88rem;
+    color: #c8b8a8;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #2a2018;
+    display: flex;
+    gap: 0.5rem;
+    line-height: 1.4;
+  }
+  .summary-item ul li::before { content: '—'; color: #5a4a3a; flex-shrink: 0; }
+  .final-thesis {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: #d4b87a;
+    border-top: 1px solid #3a2a1a;
+    padding-top: 2rem;
+  }
+
+  /* ── FILTER LOGIC ── */
+  .card.hidden { display: none; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9a8a7a;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Separator between periods */
+  .period-sep {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+    color: #9a8a7a;
+  }
+  .period-sep::before, .period-sep::after {
+    content: ''; flex: 1;
+    height: 1px; background: var(--border);
+  }
+  .period-sep span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <p class="eyebrow">Revisión Histórica · Siglos XVIII–XX</p>
+  <h1>El Mundo que Hizo <em>la Topología</em></h1>
+  <p class="subtitle">Ideas, condiciones materiales y corrientes filosóficas en el nacimiento de una disciplina</p>
+  <p class="header-meta">Desde Leibniz (1679) hasta Eilenberg & MacLane (1945–1956)</p>
+</header>
+
+<!-- LEGEND / FILTER -->
+<nav class="legend">
+  <span class="legend-label">Filtrar por:</span>
+  <button class="legend-item item-ideas" onclick="filterCards('ideas')">
+    <span class="legend-dot dot-ideas"></span> Ideas & Secuencia Conceptual
+  </button>
+  <button class="legend-item item-material" onclick="filterCards('material')">
+    <span class="legend-dot dot-material"></span> Condiciones Materiales
+  </button>
+  <button class="legend-item item-philosophy" onclick="filterCards('philosophy')">
+    <span class="legend-dot dot-philosophy"></span> Filosofía & Corrientes
+  </button>
+  <button class="legend-item item-disruption" onclick="filterCards('disruption')">
+    <span class="legend-dot dot-disruption"></span> Rupturas & Obstáculos
+  </button>
+  <button class="legend-item" style="color:#4a3a2a" onclick="filterCards('all')">
+    <span class="legend-dot" style="background:#9a8a7a"></span> Mostrar todo
+  </button>
+</nav>
+
+<!-- INTRO -->
+<div class="intro">
+  <p class="thesis">"La topología algebraica es, en esencia, el arte de escuchar el álgebra que habla la forma. Pero esa escucha ocurrió en lugares concretos, pagada por imperios, interrumpida por guerras, y realizada por personas a quienes el sistema buscó excluir."</p>
+  <p>Esta revisión organiza el desarrollo de la topología —desde sus problemas germinales en el siglo XVIII hasta su madurez algebraica en los años 1950— en cuatro capas simultáneas: la <strong style="color:var(--ideas)">secuencia de ideas</strong>, las <strong style="color:var(--material)">condiciones materiales</strong> que las hicieron posibles (o imposibles), las <strong style="color:var(--philosophy)">corrientes filosóficas</strong> que las moldearon, y las <strong style="color:var(--disruption)">rupturas y obstáculos</strong> que desviaron o destruyeron trayectorias.</p>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline">
+
+  <!-- ═══════════ PERÍODO 1 ═══════════ -->
+  <div class="period">
+    <div class="period-header">
+      <div class="period-date">
+        <span class="century">S. XVII–XVIII</span>
+        <span class="years">1679–1750</span>
+      </div>
+      <div class="period-title-block">
+        <span class="period-label">Período I · Orígenes</span>
+        <h2 class="period-title">De la geometría de posición <em>al primer invariante</em></h2>
+      </div>
+    </div>
+    <div class="cards">
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Idea germinal</span>
+        <h3 class="card-title">La geometría sin magnitudes: Leibniz</h3>
+        <p class="card-actors">G. W. Leibniz · 1679</p>
+        <p>Leibniz propone la <em>geometria situs</em>: un lenguaje para operar con figuras sin recurrir a coordenadas ni números. Su "Identidad de los Indiscernibles" siembra el concepto de isomorfismo estructural: dos objetos son equivalentes si tienen la misma forma, independientemente del tamaño.</p>
+        <p>Su visión del espacio como <strong>sistema de relaciones</strong> —opuesta al espacio absoluto de Newton— es la intuición fundacional de toda la topología moderna.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Primer teorema topológico</span>
+        <h3 class="card-title">Königsberg y el nacimiento del grafo</h3>
+        <p class="card-actors">Leonhard Euler · 1736</p>
+        <p>Euler resuelve el problema de los siete puentes abstrayendo masas de tierra como <strong>vértices</strong> y puentes como <strong>aristas</strong>. La solución depende del esquema de conexiones, no de distancias. Nace el concepto de grafo.</p>
+        <p>En 1750 descubre V − A + C = 2 para poliedros convexos: el primer <strong>invariante topológico</strong> de la historia. No cambia bajo deformaciones continuas.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">El absolutismo ilustrado financia la ciencia pura</h3>
+        <p class="card-actors">Academia Imperial de San Petersburgo · Pedro I · Federico II</p>
+        <p>Pedro I funda la Academia de San Petersburgo (1724) para demostrar que Rusia es una potencia europea. Importa cerebros: sueldo fijo, sin obligación de enseñar, biblioteca. Euler llega a los 20 años y puede <em>simplemente pensar</em>.</p>
+        <p>Federico II replica el modelo en Berlín. La productividad de Euler —más de 800 obras— es inseparable de este sistema de mecenazgo imperial que no exige justificación práctica inmediata.</p>
+        <div class="pull-quote">"No había justificación práctica para la geometria situs. Simplemente se le pagaba por pensar, y él pensaba sobre todo."</div>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Escuelas militares y la abstracción útil</h3>
+        <p class="card-actors">Francia · Prusia · S. XVIII</p>
+        <p>Las escuelas técnicas militares en Francia y Prusia necesitan geometría flexible para diseño de fortificaciones y balística. Esto presiona a matemáticos a desarrollar lenguajes que prioricen la <strong>estructura sobre la medición rígida</strong>, prefigurando el espíritu topológico.</p>
+        <p>La logística urbana —crecimiento de ciudades, redes de tránsito— plantea problemas de conectividad de los que el problema de Königsberg es expresión directa.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">Relacionalismo leibniziano</h3>
+        <p class="card-actors">G. W. Leibniz · Metafísica del espacio</p>
+        <p>La Ley de Continuidad de Leibniz (<em>natura non facit saltus</em>) prefigura la noción de transformación continua y homeomorfismo. La naturaleza no da saltos: los objetos se deforman gradualmente.</p>
+        <p>La Ilustración racionalista impulsa la <strong>algebrización</strong>: reemplazar dibujos geométricos por fórmulas simbólicas, tratando objetos geométricos de forma numérica y abstracta.</p>
+      </div>
+
+    </div>
+    <div class="connector">La fórmula de Euler V−A+C=2 permanecerá inexplicada durante un siglo; Poincaré la redescubrirá como suma alternada de números de Betti.</div>
+  </div>
+
+  <div class="period-sep"><span>Transición hacia el siglo XIX</span></div>
+
+  <!-- ═══════════ PERÍODO 2 ═══════════ -->
+  <div class="period">
+    <div class="period-header">
+      <div class="period-date">
+        <span class="century">Siglo XIX</span>
+        <span class="years">1813–1880</span>
+      </div>
+      <div class="period-title-block">
+        <span class="period-label">Período II · Formalización</span>
+        <h2 class="period-title">Superficies, conectividad <em>y dimensiones superiores</em></h2>
+      </div>
+    </div>
+    <div class="cards">
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Generalización del invariante</span>
+        <h3 class="card-title">Lhuilier y el género de una superficie</h3>
+        <p class="card-actors">Antoine-Jean Lhuilier · 1813</p>
+        <p>Lhuilier identifica que la fórmula de Euler falla para sólidos con agujeros e introduce el término <strong>2 − 2g</strong> (donde g es el género). Primera clasificación de superficies por su conectividad: una esfera tiene g=0, un toro g=1.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Nacimiento del nombre</span>
+        <h3 class="card-title">Listing: "Topologie" como ciencia propia</h3>
+        <p class="card-actors">J. B. Listing · 1847</p>
+        <p>Acuña formalmente el término "Topologie" buscando establecerla como ciencia cualitativa distinta de la geometría tradicional. Describe independientemente la <strong>banda de Möbius</strong> (1858), desafiando la intuición sobre orientabilidad.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Topología + Análisis Complejo</span>
+        <h3 class="card-title">Riemann: superficies para funciones multivaluadas</h3>
+        <p class="card-actors">Bernhard Riemann · 1851–1857</p>
+        <p>Para gestionar funciones como √z o log z, Riemann construye objetos bidimensionales —<strong>superficies de Riemann</strong>— donde estas funciones se vuelven univaluadas. Demuestra que el <strong>género</strong> (número de agujeros) determina propiedades fundamentales del análisis complejo.</p>
+        <p>Momento clave: <strong>una propiedad topológica controla el análisis</strong>. Topología y análisis quedan entrelazados por primera vez.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Dimensiones superiores</span>
+        <h3 class="card-title">Betti: números de conectividad en n dimensiones</h3>
+        <p class="card-actors">Enrico Betti · 1871</p>
+        <p>Extiende las ideas de Riemann a variedades de dimensión arbitraria. Introduce los <strong>números de Betti</strong> b₀, b₁, b₂,… que miden la conectividad en cada dimensión: b₀ = componentes conexas, b₁ = lazos independientes, b₂ = cavidades.</p>
+        <p>Son invariantes topológicos, pero Betti carece del rigor algebraico para computarlos sistemáticamente. Esa tarea quedará para Noether y Poincaré.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Andamiaje lógico</span>
+        <h3 class="card-title">Cantor: la teoría de conjuntos como fundamento</h3>
+        <p class="card-actors">Georg Cantor · 1872–1880</p>
+        <p>A través de la teoría de conjuntos, proporciona el lenguaje base de la topología moderna: puntos de acumulación, conjuntos abiertos y cerrados. La topología deja de ser el estudio de "blobs" geométricos y se convierte en el estudio de <strong>colecciones arbitrarias de puntos</strong>.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La Reforma Humboldtiana y el modelo universitario alemán</h3>
+        <p class="card-actors">Wilhelm von Humboldt · Universidad de Berlín · 1810</p>
+        <p>Tras la humillación de la derrota prusiana ante Napoleón (1807), el estado se reinventa. Humboldt propone la universidad como lugar donde <strong>investigación y enseñanza son inseparables</strong>. Nace el seminario alemán: el profesor trabaja <em>con</em> los estudiantes en problemas abiertos.</p>
+        <p>Riemann, hijo de un pastor de aldea, llega a Göttingen por este mecanismo meritocrático. La reforma humboldtiana crea la figura del <em>profesor-investigador</em> y hace posible la carrera académica moderna.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La geodesia estatal y la curvatura intrínseca</h3>
+        <p class="card-actors">Carl Friedrich Gauss · Levantamiento de Hannover · 1820s</p>
+        <p>La necesidad de mapas precisos para fines tributarios y militares lleva a Gauss a dirigir el levantamiento geodésico de Hannover. Al medir la curvatura de la Tierra <em>directamente sobre el terreno</em>, comprende que las superficies tienen <strong>propiedades intrínsecas</strong> independientes del espacio que las rodea.</p>
+        <p>El <em>Theorema Egregium</em> es un resultado de política cartográfica estatal convertido en fundamento de la geometría diferencial.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Redes telegráficas y la homología avant la lettre</h3>
+        <p class="card-actors">Kirchhoff · Expansión telegráfica · 1847</p>
+        <p>La expansión telegráfica exige analizar redes complejas. Kirchhoff publica sus leyes de circuitos analizando la red como un grafo e identificando "mallas independientes". Lo que calcula sin saberlo es el <strong>primer grupo de homología del grafo</strong>: exactamente el número de Betti b₁.</p>
+        <p>El cable transatlántico (1866) fuerza análisis matemático sofisticado de propagación de señales —financiado por capitales privados que quieren monopolizar las comunicaciones imperiales.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La unificación alemana (1871) y el nacionalismo científico</h3>
+        <p class="card-actors">Imperio Alemán · Bismarck · Klein · Hilbert</p>
+        <p>La victoria sobre Francia genera inversión estatal masiva: el Imperio quiere demostrar superioridad cultural. Felix Klein llega a Göttingen (1886) con agenda explícita y convence a <strong>Krupp, Siemens, BASF, AEG y Bayer</strong> de financiar la matemática pura como inversión de largo plazo.</p>
+        <p>Paradoja: el dinero de los cañones de Krupp paga el ambiente donde se desarrollará la cohomología. La matemática alemana de 1870 a 1933 es hegemónica a nivel mundial.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La industria de seguros y los fundamentos de la medida</h3>
+        <p class="card-actors">Actuarios · Lebesgue · S. XIX–XX</p>
+        <p>Las compañías de seguros necesitan probabilidades y estadísticas rigurosas. Esta presión financia la formalización de la teoría de la medida. Lebesgue (1902) publica su integral generalizada —que se convierte en fundamento de la <strong>topología de espacios funcionales</strong> (espacios Lᵖ).</p>
+        <p>Camino: industria de seguros → probabilidad → teoría de medida → topología funcional.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Riemann, la mala salud y la colaboración Betti</h3>
+        <p class="card-actors">Riemann · Betti · Italia · 1850s–1860s</p>
+        <p>Riemann, aquejado de tuberculosis, viaja frecuentemente a Italia por el clima cálido. Estos viajes facilitan su relación personal con <strong>Enrico Betti</strong>, transmitiendo directamente sus ideas sobre conectividad de superficies. Betti las extiende a n dimensiones.</p>
+        <p>Una condición médica personal —la enfermedad— determina una ruta de transferencia de conocimiento que de otro modo no habría ocurrido.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">El fervor religioso de Cauchy y el rigor moderno</h3>
+        <p class="card-actors">Augustin-Louis Cauchy · Catolicismo · S. XIX</p>
+        <p>Cauchy introduce un matiz filosófico-religioso: impulsado por su fe católica y en disputa con el optimismo racionalista de la Revolución Francesa, insiste en el <strong>límite de la capacidad humana para conocer</strong>. Esta humildad intelectual lo lleva a exigir rigor extremo.</p>
+        <p>Desarrolla las definiciones modernas de continuidad y límite —pilares de la topología de conjuntos de puntos— como consecuencia de una postura teológica.</p>
+      </div>
+
+    </div>
+    <div class="connector">Las ideas de Betti y Riemann permanecen sin rigor algebraico. Poincaré las encontrará mientras intenta resolver un concurso pagado por un rey noruego.</div>
+  </div>
+
+  <div class="period-sep"><span>Umbral del siglo XX</span></div>
+
+  <!-- ═══════════ PERÍODO 3 ═══════════ -->
+  <div class="period">
+    <div class="period-header">
+      <div class="period-date">
+        <span class="century">S. XIX–XX</span>
+        <span class="years">1887–1914</span>
+      </div>
+      <div class="period-title-block">
+        <span class="period-label">Período III · Fundación</span>
+        <h2 class="period-title">Poincaré y el nacimiento de <em>la topología algebraica</em></h2>
+      </div>
+    </div>
+    <div class="cards">
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">El Premio del Rey Oscar II: vanidad regia como catalizador</h3>
+        <p class="card-actors">Oscar II de Suecia · Mittag-Leffler · Poincaré · 1887</p>
+        <p>El Rey Oscar II quiere celebrar su 60 cumpleaños con prestigio cultural. Su asesor Mittag-Leffler propone un concurso sobre el problema de los n cuerpos. Poincaré gana —pero mientras el artículo se imprime, el editor Phragmén encuentra un error fundamental.</p>
+        <p>En el proceso de corrección, Poincaré descubre que el sistema solar es <em>inestable</em>, y que describir esa inestabilidad requiere herramientas que no existen. <strong>Debe inventarlas</strong>: nacen el grupo fundamental y la homología combinatoria.</p>
+        <div class="pull-quote">"Poincaré perdió dinero de su bolsillo corrigiendo el artículo ganador. El costo de la reimpresión superó el valor del premio. Así se pagó el nacimiento de la topología algebraica."</div>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Francia humillada: las Grandes Écoles como revancha</h3>
+        <p class="card-actors">Tercera República · École Polytechnique · École Normale · 1871</p>
+        <p>La derrota ante Prusia (1870–71), el colapso del Segundo Imperio, el asedio de París y la Guerra Civil de la Comuna crean una obsesión política: la <em>revanche</em>. La educación científica se convierte en instrumento de recuperación nacional.</p>
+        <p>Inversión masiva en Grandes Écoles con selección meritocrática extrema. Poincaré ingresa a Polytechnique en 1873 con el primer lugar. El sistema crea una élite tecnocrática con rol público que en otros países no existe.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">El Bureau des Longitudes: el imperialismo naval paga la topología</h3>
+        <p class="card-actors">Poincaré · Bureau des Longitudes · 1893–1912</p>
+        <p>El Bureau des Longitudes, creado para calcular efemérides astronómicas para la navegación imperial francesa, le da a Poincaré un <strong>segundo salario del Estado</strong> de por vida. También lo involucra en la sincronización de relojes telegráficos —trabajo paralelo al de Einstein sobre la simultaneidad.</p>
+        <p>La estabilidad económica resultante —sin necesidad de buscar mecenas ni dar clases privadas— es condición directa de su productividad extraordinaria. El imperialismo naval financia la topología algebraica.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Acto fundacional</span>
+        <h3 class="card-title">Analysis Situs: el grupo fundamental y la homología</h3>
+        <p class="card-actors">Henri Poincaré · 1895–1904</p>
+        <p>En seis memorias publicadas en nueve años, Poincaré funda la topología algebraica. Introduce el <strong>grupo fundamental π₁(X)</strong>: por primera vez, un objeto algebraico (un grupo) distingue espacios topológicos.</p>
+        <p>Reformula los números de Betti combinatoriamente, trabaja con complejos simpliciales, y demuestra la <strong>Dualidad de Poincaré</strong>: en una variedad orientable de dimensión n, bₖ = b_{n-k}.</p>
+        <p>En 1904 formula la Conjetura de Poincaré —abierta durante 99 años, resuelta por Perelman en 2003.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Herramientas de transformación</span>
+        <h3 class="card-title">Brouwer: del estudio de objetos al de transformaciones</h3>
+        <p class="card-actors">L. E. J. Brouwer · 1911–1912</p>
+        <p>Brouwer introduce el <strong>grado de un mapeo</strong> y demuestra el <strong>Teorema del Punto Fijo</strong>: toda función continua de un disco en sí mismo tiene un punto fijo. Desplaza el foco del estudio de los objetos topológicos al estudio de las <em>funciones continuas entre ellos</em>.</p>
+        <p>También demuestra la invariancia de la dimensión —dos espacios euclidianos de dimensiones distintas no pueden ser homeomorfos— respondiendo una pregunta que Cantor había dejado abierta.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Axiomatización del espacio</span>
+        <h3 class="card-title">Hausdorff: el espacio topológico moderno</h3>
+        <p class="card-actors">Felix Hausdorff · Grundzüge der Mengenlehre · 1914</p>
+        <p>Hausdorff culmina el proceso de abstracción definiendo los espacios topológicos mediante <strong>axiomas de vecindades</strong>. Libera a la topología de toda dependencia de una métrica o distancia numérica. Hace posible su aplicación a espacios de funciones de dimensión infinita.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Espacios métricos</span>
+        <h3 class="card-title">Fréchet: puente entre análisis y topología abstracta</h3>
+        <p class="card-actors">Maurice Fréchet · 1906</p>
+        <p>Introduce formalmente los <strong>espacios métricos</strong> —donde la estructura topológica se deriva de una función de distancia d(x,y)— y axiomatiza la compacidad. Es el puente entre el análisis clásico y la topología abstracta que Hausdorff completará.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">El asunto Dreyfus y la matemática como peritaje político</h3>
+        <p class="card-actors">Poincaré · Dreyfus · Francia · 1894–1899</p>
+        <p>Poincaré es llamado como perito matemático en el proceso de revisión del caso Dreyfus (1899) para evaluar el análisis estadístico de la acusación. Lo destruye sistemáticamente, demostrando que los métodos probabilísticos usados son erróneos o fraudulentos.</p>
+        <p>Ilustra el ambiente francés: la matemática tiene <strong>peso político directo</strong>. El antisemitismo del caso Dreyfus prefigura tensiones que décadas después expulsarán a Noether y otros.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">El Intuicionismo de Brouwer: crisis existencial de la disciplina</h3>
+        <p class="card-actors">L. E. J. Brouwer · 1910s–1928</p>
+        <p>Brouwer funda el Intuicionismo: la matemática no es un sistema de verdades preexistentes sino una <strong>construcción mental basada en la intuición del tiempo</strong>. Rechaza el principio del tercio excluso en conjuntos infinitos, lo que lo lleva a desautorizar sus propias pruebas del teorema del punto fijo por no ser "constructivas".</p>
+        <p>Su enfrentamiento con Hilbert llega al límite en 1928: Hilbert lo expulsa del comité editorial de los <em>Mathematische Annalen</em>. Brouwer se retira de la escena internacional.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">Klein y el Programa de Erlangen: topología como geometría legítima</h3>
+        <p class="card-actors">Felix Klein · Programa de Erlangen · 1872</p>
+        <p>Klein sitúa a la topología (<em>Analysis Situs</em>) como rama legítima de la geometría, definida por el grupo de transformaciones que preservan ciertas propiedades. Mantiene correspondencia clave con Poincaré para clarificar el género de las superficies, unificando la visión analítica con la topológica.</p>
+        <p>Su programa conceptual es también un <em>programa institucional</em>: hace de Göttingen un ecosistema matemático donde la topología tiene lugar propio.</p>
+      </div>
+
+    </div>
+    <div class="connector">La Primera Guerra Mundial rompe las redes internacionales, mata una generación de matemáticos franceses y siembra el terreno para la fundación de Bourbaki.</div>
+  </div>
+
+  <div class="period-sep"><span>La Gran Guerra y sus consecuencias</span></div>
+
+  <!-- ═══════════ PERÍODO 4 ═══════════ -->
+  <div class="period">
+    <div class="period-header">
+      <div class="period-date">
+        <span class="century">Entreguerras</span>
+        <span class="years">1914–1933</span>
+      </div>
+      <div class="period-title-block">
+        <span class="period-label">Período IV · Algebrización</span>
+        <h2 class="period-title">Noether, Weimar <em>y la revolución algebraica</em></h2>
+      </div>
+    </div>
+    <div class="cards">
+
+      <div class="card disruption">
+        <span class="card-tag">⚠ Ruptura</span>
+        <h3 class="card-title">La Primera Guerra: generación sacrificada y fractura internacional</h3>
+        <p class="card-actors">Francia · 1914–1918</p>
+        <p>Francia pierde aproximadamente el 16% de sus hombres movilizados. La cultura igualitaria republicana envía a la élite intelectual al frente junto a todos los demás. <strong>Entre un cuarto y la mitad de los estudiantes de la École Normale Superior mueren en las trincheras.</strong></p>
+        <p>El "Manifiesto de los 93" —científicos alemanes que apoyan la guerra y niegan crímenes en Bélgica— envenena las relaciones internacionales. El Congreso de 1920 en Estrasburgo excluye a los alemanes. La matemática, que se pretende universal, es territorializada por la guerra.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La independencia de Polonia: escasez como estrategia</h3>
+        <p class="card-actors">Janiszewski · Kuratowski · Banach · 1918–1939</p>
+        <p>Polonia devastada en 1918 no puede competir en ciencias experimentales. Janiszewski articula la solución en su texto de 1918: concentrarse en <strong>matemática pura —capital inicial mínimo, profundidad máxima</strong>. El área elegida: teoría de conjuntos, lógica, topología.</p>
+        <p>Sociedad Matemática Polaca (1919) y revista <em>Fundamenta Mathematicae</em> (1920). En quince años, Polonia lidera la topología general mundial. El Café Escocés en Lwów y su <em>Libro Escocés</em> muestran que la matemática de primer nivel puede florecer en condiciones materiales modestas si hay comunidad intelectual densa.</p>
+        <div class="pull-quote">"Premios que iban desde una taza de café hasta un ganso vivo. Ese ganso fue entregado en 1972, décadas después de que quien ofreció el premio había muerto."</div>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La Revolución Rusa y la apertura de oportunidades</h3>
+        <p class="card-actors">Alexandrov · Urysohn · Pontryagin · URSS · 1917–1930</p>
+        <p>El régimen soviético temprano, paradójicamente, es favorable a la matemática abstracta —la ideología marxista valora la ciencia. La Revolución sacude las estructuras sociales y abre oportunidades: Alexandrov e Urysohn, de orígenes provincianos, hacen carreras imposibles bajo el zarismo.</p>
+        <p>Visitan Göttingen en los años 1920, establecen vínculos con Hilbert y Noether, y llevan a Moscú los métodos de la topología moderna. <strong>Urysohn</strong> muere ahogado a los 26 años; su lema es completado y publicado por Alexandrov. <strong>Pontryagin</strong>, ciego desde los 14, desarrolla una intuición espacial extraordinaria.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La hiperinflación alemana como internacionalización involuntaria</h3>
+        <p class="card-actors">Alemania · 1921–1923</p>
+        <p>La hiperinflación pulveriza los presupuestos universitarios y los salarios de los profesores. Las revistas no pueden costear el papel. Pero los matemáticos extranjeros con moneda fuerte encuentran Alemania <em>extraordinariamente barata</em>.</p>
+        <p>Alexandrov y Urysohn pasan largas temporadas en Göttingen porque el rublo soviético vale más que el marco en colapso. La catástrofe económica alemana es un mecanismo involuntario de <strong>internacionalización de Göttingen</strong>.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La Fundación Rockefeller: geopolítica del conocimiento puro</h3>
+        <p class="card-actors">IEB · Augustus Trowbridge · 1923–1938</p>
+        <p>El International Education Board de Rockefeller Jr. tiene lógica geopolítica explícita: EEUU necesita construir capacidad científica importando conocimiento europeo. Trowbridge concluye que matemática y física teórica ofrecen el mejor retorno: baratas, fértiles, con científicos que necesitan apoyo.</p>
+        <p>Financia viajes de Alexandrov a Göttingen donde conoce a Noether. Prepara posiciones en Princeton y Chicago para el éxodo que vendrá. El modelo del IAS lo funda Louis Bamberger —que vendió sus grandes almacenes <em>justo antes</em> del crack del 29.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 La revolución algebraica</span>
+        <h3 class="card-title">Noether: los grupos de homología como grupos</h3>
+        <p class="card-actors">Emmy Noether · Göttingen · 1925–1927</p>
+        <p>Hasta mediados de los 1920, la "homología" son meramente números de Betti y coeficientes de torsión. Noether propone en seminarios en Göttingen: <strong>los grupos de homología deben ser tratados como grupos abelianos</strong>, no como números.</p>
+        <p>Las consecuencias son enormes: los grupos capturan más información (la torsión ℤ/2ℤ vs ℤ/3ℤ se pierde si solo se reporta el número de Betti); los mapas entre espacios inducen <strong>homomorfismos entre grupos de homología</strong>; se abren las herramientas del álgebra abstracta.</p>
+        <p>Hopf y Alexandrov publican estas ideas y dan crédito explícito a Noether. Es el fundamento de todo el álgebra homológica moderna.</p>
+      </div>
+
+      <div class="card disruption">
+        <span class="card-tag">⚠ Exclusión sistemática</span>
+        <h3 class="card-title">Noether: género y academia imperial</h3>
+        <p class="card-actors">Emmy Noether · Alemania imperial · República de Weimar · 1882–1919</p>
+        <p>La Alemania imperial no permite a las mujeres matricularse regularmente. Noether audita cursos con permiso especial de cada profesor. Se doctora en 1907 pero durante siete años no puede obtener posición académica alguna. Trabaja sin sueldo ayudando a su padre.</p>
+        <p>Cuando Hilbert y Klein la invitan a Göttingen en 1915, la facultad se opone: <em>"¿Qué pensarán los soldados cuando regresen del frente y deban estudiar a los pies de una mujer?"</em>. Hilbert responde: <em>"Esto es una academia, no una casa de baños."</em> Solo con la República de Weimar (1919) obtiene una Habilitation formal. Tenía 37 años.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La disolución austro-húngara y la diáspora matemática húngara</h3>
+        <p class="card-actors">Von Neumann · Erdős · Riesz · Concurso Eötvös · 1894–1919</p>
+        <p>Hungría desarrolla desde 1894 el concurso Eötvös —que premia la resolución creativa, no la memorización. La comunidad judía húngara lo usa como mecanismo de movilidad social: el Estado cierra otras puertas (ejército, diplomacia), lo que concentra presión competitiva en la matemática.</p>
+        <p>El colapso del Imperio (1918) y el antisemitismo del régimen Horthy (1919) dispersan esta élite: Von Neumann va a Princeton, Erdős se vuelve el matemático más nómada de la historia. El Tratado de Trianon (1920) despoja a Hungría del 72% de su territorio.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">Weimar: creatividad en la inestabilidad</h3>
+        <p class="card-actors">República de Weimar · 1919–1933</p>
+        <p>La República de Weimar —hiperinflación, humillación de Versalles, agitación política permanente— es paradójicamente uno de los momentos más fecundos de la historia cultural europea: expresionismo, Bauhaus, física cuántica y, en matemáticas, la consolidación del álgebra moderna.</p>
+        <p>La inestabilidad que destruye certezas económicas puede liberar creatividad intelectual. Pero el mismo suelo que produce esta creatividad producirá el nazismo.</p>
+      </div>
+
+    </div>
+    <div class="connector">El 7 de abril de 1933, el Arierparagraph destruye Göttingen en semanas. El centro mundial de la topología comienza su traslado forzoso a América.</div>
+  </div>
+
+  <div class="period-sep"><span>La gran ruptura</span></div>
+
+  <!-- ═══════════ PERÍODO 5 ═══════════ -->
+  <div class="period">
+    <div class="period-header">
+      <div class="period-date">
+        <span class="century">S. XX</span>
+        <span class="years">1933–1945</span>
+      </div>
+      <div class="period-title-block">
+        <span class="period-label">Período V · Destrucción y Éxodo</span>
+        <h2 class="period-title">El fascismo vacía Göttingen. <em>América hereda la topología.</em></h2>
+      </div>
+    </div>
+    <div class="cards">
+
+      <div class="card disruption wide">
+        <span class="card-tag">⚠ Catástrofe institucional</span>
+        <h3 class="card-title">El Arierparagraph y el colapso de Göttingen</h3>
+        <p class="card-actors">Noether · Courant · Weyl · Von Neumann · Hausdorff · 1933</p>
+        <div class="card-body">
+          <div>
+            <p>El 7 de abril de 1933, la <em>Ley para la Restauración del Servicio Civil Profesional</em> ordena el despido inmediato de todos los funcionarios de origen "no ario". Los profesores son funcionarios del Estado.</p>
+            <p>Göttingen pierde el 60% de su facultad en meses: Emmy Noether, Richard Courant, Hermann Weyl, John von Neumann, Max Born, Otto Neugebauer. Hilbert, al ser preguntado si la matemática en Göttingen había sufrido con la expulsión de los judíos, responde:</p>
+            <div class="pull-quote">"¿Sufrido? No ha sufrido, Herr Minister. ¡Simplemente ya no existe!"</div>
+          </div>
+          <div>
+            <p><strong>Felix Hausdorff</strong> —padre de la axiomatización topológica— es forzado a jubilarse. El 26 de enero de 1942, cuando recibe la orden de deportación al campo de Endenich, se suicida junto con su esposa y su cuñada para evitar los campos de concentración.</p>
+            <p>Noether encuentra refugio en <strong>Bryn Mawr College</strong>, gracias a gestiones de colegas americanos y la Fundación Rockefeller. Muere en abril de 1935, a los 53 años, de complicaciones quirúrgicas. Su potencial al momento del exilio seguía siendo enorme.</p>
+            <p>La persecución nazi produce la <strong>mayor migración de talento científico de la historia</strong>: más de 1,000 académicos científicos en doce años. El centro mundial pasa de Göttingen a los Estados Unidos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card disruption">
+        <span class="card-tag">⚠ Ruptura</span>
+        <h3 class="card-title">La masacre de los profesores de Lwów (1941)</h3>
+        <p class="card-actors">Einsatzgruppen · Lwów · Polonia · julio 1941</p>
+        <p>La invasión alemana (sept. 1939) y soviética del este destruyen la élite intelectual polaca. En julio de 1941, tras la ocupación alemana de Lwów, los Einsatzgruppen ejecutan a los profesores universitarios polacos en la masacre de los profesores.</p>
+        <p>Banach sobrevive trabajando como <strong>alimentador de piojos</strong> en el Instituto de Weigl —los nazis necesitan vacunas contra el tifus y usan a intelectuales como incubadoras humanas. Muere de cáncer semanas después de la liberación, en 1945.</p>
+        <p>La escuela matemática polaca —construida en veinte años— es destruida en cuatro.</p>
+      </div>
+
+      <div class="card disruption">
+        <span class="card-tag">⚠ Ruptura</span>
+        <h3 class="card-title">La Gran Depresión y el nazismo como consecuencia económica</h3>
+        <p class="card-actors">1929–1933 · Mercado académico saturado</p>
+        <p>El crack del 29 recorta los presupuestos universitarios en EEUU y Europa justo cuando comienza el éxodo europeo. Muchos refugiados encuentran el mercado académico americano saturado.</p>
+        <p>Pero la Depresión es condición necesaria del nazismo: la correlación entre desempleo masivo y voto nazi está bien documentada. El colapso económico que empuja a Hitler al poder es el mismo que expulsa a Noether y cientos de otros.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Creación en cautiverio</span>
+        <h3 class="card-title">Leray: sucesiones espectrales desde un campo de prisioneros</h3>
+        <p class="card-actors">Jean Leray · Edelbach, Austria · 1940–1945</p>
+        <p>Leray es capturado en 1940. Especialista en mecánica de fluidos, teme ser forzado a trabajar para la industria de guerra. Decide presentarse deliberadamente como matemático puro —un topólogo— ante las autoridades del campo.</p>
+        <p>Con acceso mínimo a literatura, en el campo desarrolla las <strong>sucesiones espectrales</strong> y los fundamentos de la cohomología de haces (<em>sheaf cohomology</em>). Herramientas de tanta profundidad que los matemáticos tardaron años en comprenderlas. Una de las producciones intelectuales más extraordinarias bajo condiciones de privación.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Fertilización cruzada forzada: el IAS de Princeton</h3>
+        <p class="card-actors">Eilenberg · MacLane · Steenrod · Hopf · Princeton · Chicago</p>
+        <p>El exilio fuerza a matemáticos de tradiciones distintas —alemana, francesa, polaca, húngara— a convivir en universidades americanas. Esto crea síntesis que habrían tardado generaciones de otro modo.</p>
+        <p>El IAS de Princeton —fundado en 1933, financiado por Bamberger, concebido como instrumento de poder blando americano— es el espacio donde esta fertilización ocurre. Eilenberg (polaco), MacLane (americano), Steenrod (formado en Europa) y Hopf (alemán en Suiza) producen la teoría de categorías y la topología algebraica moderna en un diálogo que la guerra había hecho posible trágicamente.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Suiza como espacio de neutralidad matemática</h3>
+        <p class="card-actors">ETH Zürich · Hermann Weyl · Heinz Hopf</p>
+        <p>La neutralidad suiza permite que el ETH Zürich funcione sin interrupción durante ambas guerras. Weyl llega en 1913; Hopf en 1931, huyendo de la Alemania amenazante. El ETH se convierte en punto de encuentro: matemáticos de países en conflicto pueden reunirse ahí de manera imposible en otros lugares.</p>
+        <p>La neutralidad política suiza es una <strong>condición material para la continuidad de ciertas redes científicas</strong> que de otro modo se habrían cortado.</p>
+      </div>
+
+      <div class="card disruption">
+        <span class="card-tag">⚠ Ruptura</span>
+        <h3 class="card-title">Italia: las leyes raciales de Mussolini (1938)</h3>
+        <p class="card-actors">Enriques · Segre · Fubini · Italia fascista</p>
+        <p>Las leyes raciales de 1938 copian las de Núremberg. Enriques pierde su cátedra; Beniamino Segre emigra a Gran Bretaña; Fubini emigra a Princeton y muere en 1943. La geometría algebraica italiana —que había sido hegemónica— entra en crisis.</p>
+        <p>La tarea de rigorizar sus métodos usando topología moderna la realizarán matemáticos franceses y americanos —Weil, luego Grothendieck— que no sufrieron el mismo colapso institucional.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Bourbaki: respuesta a la sangría</span>
+        <h3 class="card-title">La generación muerta y la refundación francesa</h3>
+        <p class="card-actors">Weil · H. Cartan · Dieudonné · Delsarte · 1930s</p>
+        <p>Los jóvenes matemáticos franceses comprenden que sus profesores en la École Normale son académicos envejecidos o muertos de guerra, y que los textos franceses están décadas atrasados. La respuesta es radical: bajo el pseudónimo <strong>"Nicolas Bourbaki"</strong>, refundan las matemáticas desde los axiomas.</p>
+        <p>Los <em>Éléments de mathématique</em> (desde 1939) identifican a la topología como una de las tres "estructuras madre" de toda la matemática. El estructuralismo formalista domina la matemática francesa de posguerra.</p>
+      </div>
+
+    </div>
+    <div class="connector">La guerra termina. El centro mundial de la topología es ahora americano. La disciplina, dispersa, encuentra nuevas síntesis en suelo del exilio.</div>
+  </div>
+
+  <div class="period-sep"><span>La madurez: posguerra y síntesis</span></div>
+
+  <!-- ═══════════ PERÍODO 6 ═══════════ -->
+  <div class="period">
+    <div class="period-header">
+      <div class="period-date">
+        <span class="century">Posguerra</span>
+        <span class="years">1945–1956</span>
+      </div>
+      <div class="period-title-block">
+        <span class="period-label">Período VI · Madurez</span>
+        <h2 class="period-title">Categorías, funtores <em>y la formalización definitiva</em></h2>
+      </div>
+    </div>
+    <div class="cards">
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Nuevo lenguaje</span>
+        <h3 class="card-title">Eilenberg & MacLane: categorías y transformaciones naturales</h3>
+        <p class="card-actors">Samuel Eilenberg · Saunders MacLane · 1942–1945</p>
+        <p>Para describir cómo los grupos de homología cambian de manera <em>natural</em> ante transformaciones entre espacios, Eilenberg y MacLane inventan los conceptos de <strong>categorías, funtores y transformaciones naturales</strong>. Un lenguaje para hablar sobre estructuras matemáticas y las relaciones entre ellas, sin tener que especificar cada vez qué tipo de estructura.</p>
+        <p>Es el lenguaje en que toda la matemática estructural del siglo XX se escribirá.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Unificación axiomática</span>
+        <h3 class="card-title">Eilenberg-Steenrod: axiomas de la homología</h3>
+        <p class="card-actors">Eilenberg · Steenrod · 1945</p>
+        <p>Establecen un tratamiento axiomático que unifica todas las teorías de homología existentes —singular, Čech, de Mayer-Vietoris— bajo un marco común. La homología deja de ser una colección de herramientas ad hoc y se convierte en una <strong>estructura axiomáticamente definida</strong>.</p>
+      </div>
+
+      <div class="card ideas">
+        <span class="card-tag">💡 Síntesis definitiva</span>
+        <h3 class="card-title">Cartan & Eilenberg: Homological Algebra (1956)</h3>
+        <p class="card-actors">Henri Cartan · Samuel Eilenberg · 1956</p>
+        <p>Este libro codifica el álgebra homológica como disciplina autónoma: categorías, funtores, sucesiones exactas, funtores derivados, Ext y Tor. Unifica todas las teorías de homología previas bajo un marco categórico único.</p>
+        <p>Es el libro que establece el lenguaje en que toda la topología algebraica se escribe hoy. Marca la madurez formal de la disciplina.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">La ONR y el financiamiento militar de la topología pura</h3>
+        <p class="card-actors">Office of Naval Research · EEUU · Posguerra</p>
+        <p>El gobierno americano, a través de la Office of Naval Research, decide financiar no solo matemática aplicada sino también topología pura, viéndola como <strong>herramienta estratégica de largo plazo</strong>. La Guerra Fría convierte la ciencia pura en instrumento de demostración de superioridad del mundo libre.</p>
+        <p>El IAS de Princeton es concebido en parte como poder blando: demostrar que la democracia produce mejor pensamiento abstracto que el comunismo.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">Pontryagin y la topología soviética en la carrera espacial</h3>
+        <p class="card-actors">Lev Pontryagin · URSS · 1950s</p>
+        <p>Pontryagin desarrolla el "Principio del Máximo" para la teoría de control óptimo —fundamental para dirigir misiles y satélites— tratando estos problemas como retos topológicos en el espacio de fase. La topología soviética, aunque aislada de Occidente por la Guerra Fría, alcanza nivel de primerísima clase.</p>
+        <p>El aislamiento soviético obliga a reconstruir resultados de manera independiente, llegando a veces a los mismos teoremas por caminos distintos, enriqueciendo el campo desde fuera.</p>
+      </div>
+
+      <div class="card material">
+        <span class="card-tag">🏛 Condición material</span>
+        <h3 class="card-title">El IHES: libertad radical para la reformulación</h3>
+        <p class="card-actors">IHES · Grothendieck · Francia · 1958</p>
+        <p>En 1958 se funda el Institut des Hautes Études Scientifiques, financiado por empresarios y siguiendo el modelo del IAS de Princeton, para dar a matemáticos como <strong>Grothendieck</strong> la libertad de reformular los cimientos de la geometría y la topología bajo el marco de la teoría de categorías.</p>
+        <p>Grothendieck reformulará completamente la geometría algebraica usando las herramientas topológicas de Leray y el lenguaje categórico de Eilenberg-MacLane.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">El Estructuralismo de Bourbaki: topología como estructura madre</h3>
+        <p class="card-actors">Bourbaki · Francia · 1939–1960s</p>
+        <p>Bourbaki identifica a la topología como una de las tres <strong>"estructuras madre"</strong> de toda la matemática (junto con estructuras algebraicas y de orden). Su formalismo radical rechaza cualquier referencia a la intuición física o geométrica, buscando una base puramente axiomática en la teoría de conjuntos.</p>
+        <p>Paradoja: Bourbaki nació de la necesidad de importar el rigor algebraico alemán de Noether. Sus frutos radicalizan ese rigor hasta excluir la intuición que lo generó.</p>
+      </div>
+
+      <div class="card philosophy">
+        <span class="card-tag">🧠 Filosofía</span>
+        <h3 class="card-title">Empirismo lógico y topología del espacio-tiempo</h3>
+        <p class="card-actors">Russell · Carnap · Zubiri · S. XX</p>
+        <p>Filósofos analíticos usan la topología para resolver el problema de la relación entre datos sensoriales y espacio-tiempo físico. El filósofo español Xavier Zubiri emplea los avances de Brouwer para argumentar que la dimensión es una propiedad intrínseca de lo real y que la matemática es una "construcción de la inteligencia sentiente".</p>
+        <p>La topología se vuelve instrumento filosófico para pensar la realidad misma, no solo las formas matemáticas.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /timeline -->
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="summary-inner">
+    <h2>Síntesis: Cuatro hilos que forman un tejido</h2>
+    <div class="summary-grid">
+      <div class="summary-item ideas">
+        <h3>💡 Secuencia de Ideas</h3>
+        <ul>
+          <li>Leibniz (1679): espacio relacional y geometría sin magnitudes</li>
+          <li>Euler (1736–1750): grafos y primer invariante V−A+C=2</li>
+          <li>Riemann (1851–57): género y la topología controla el análisis</li>
+          <li>Betti (1871): números de conectividad en n dimensiones</li>
+          <li>Poincaré (1895–1904): grupo fundamental, homología, conjetura</li>
+          <li>Brouwer (1911–12): grado de mapeo, teorema del punto fijo</li>
+          <li>Noether (1925): grupos de homología como grupos abelianos</li>
+          <li>Eilenberg & MacLane (1942–45): categorías y funtores</li>
+          <li>Cartan & Eilenberg (1956): álgebra homológica definitiva</li>
+        </ul>
+      </div>
+      <div class="summary-item material">
+        <h3>🏛 Condiciones Materiales Favorables</h3>
+        <ul>
+          <li>Academias reales: liberación económica del investigador</li>
+          <li>Reforma humboldtiana: profesor-investigador y seminario</li>
+          <li>Klein + industria alemana: Göttingen como ecosistema</li>
+          <li>Bureau des Longitudes: dos salarios para Poincaré</li>
+          <li>Estrategia polaca de Janiszewski: escasez → concentración</li>
+          <li>Rockefeller IEB: geopolítica del conocimiento puro</li>
+          <li>IAS Princeton: refugio y fertilización cruzada forzada</li>
+          <li>ONR + Guerra Fría: financiamiento militar de la topología pura</li>
+        </ul>
+      </div>
+      <div class="summary-item disruption">
+        <h3>⚠ Rupturas y Obstáculos</h3>
+        <ul>
+          <li>Género: Noether excluida 37 años de la academia formal</li>
+          <li>WWI: generación francesa sacrificada en las trincheras</li>
+          <li>Manifiesto de los 93: territorialización de la matemática</li>
+          <li>Arierparagraph 1933: destrucción de Göttingen en semanas</li>
+          <li>Leyes raciales italianas 1938: colapso de la geometría italiana</li>
+          <li>Masacre de Lwów 1941: destrucción de la escuela polaca</li>
+          <li>Hausdorff: suicidio ante la deportación, 1942</li>
+          <li>Aislamiento soviético: topología sin contacto con Occidente</li>
+        </ul>
+      </div>
+      <div class="summary-item philosophy">
+        <h3>🧠 Corrientes Filosóficas</h3>
+        <ul>
+          <li>Relacionalismo leibniziano: espacio como sistema de relaciones</li>
+          <li>Racionalismo ilustrado: algebrización del conocimiento geométrico</li>
+          <li>Fervor religioso de Cauchy: humildad → rigor extremo</li>
+          <li>Intuicionismo de Brouwer: matemática como construcción mental</li>
+          <li>Formalismo de Hilbert: axiomatización completa como ideal</li>
+          <li>Estructuralismo de Bourbaki: topología como "estructura madre"</li>
+          <li>Empirismo lógico: topología del espacio-tiempo sensorial</li>
+        </ul>
+      </div>
+    </div>
+    <p class="final-thesis">La topología no se desarrolló en un espacio abstracto de ideas puras. Cada teorema tiene una historia humana: Euler, liberado por un zar que quería parecer civilizado. Riemann, moldeado por una universidad inventada tras una derrota militar. Poincaré, sostenido por dos salarios del Estado imperial francés. Noether, produciendo su obra maestra a pesar de que el sistema dedicó décadas a excluirla —y luego la expulsó por su origen. Leray, inventando las sucesiones espectrales mientras fingía ser un matemático puro para no servir al ocupante. Y todos ellos, culminando en América, porque el fascismo europeo destruyó el mundo que los había creado. Lo que tenemos es también, inevitablemente, una historia de pérdidas irreparables.</p>
+  </div>
+</div>
+
+<footer>
+  Revisión histórica · Siglos XVIII–XX · Topología: Ideas, Condiciones Materiales y Filosofía
+</footer>
+
+<script>
+  let currentFilter = 'all';
+
+  function filterCards(type) {
+    currentFilter = type;
+    const cards = document.querySelectorAll('.card');
+    const buttons = document.querySelectorAll('.legend-item');
+
+    buttons.forEach(b => b.classList.remove('active-filter'));
+
+    if (type === 'all') {
+      cards.forEach(c => c.classList.remove('hidden'));
+    } else {
+      cards.forEach(c => {
+        if (c.classList.contains(type)) {
+          c.classList.remove('hidden');
+        } else {
+          c.classList.add('hidden');
+        }
+      });
+      // Highlight active button
+      const active = document.querySelector(`.item-${type}`);
+      if (active) active.classList.add('active-filter');
+    }
+  }
+</script>
+</body>
+</html>
